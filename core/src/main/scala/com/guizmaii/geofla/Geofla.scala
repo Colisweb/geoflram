@@ -1,4 +1,5 @@
 package com.guizmaii.geofla
+import org.locationtech.jts.algorithm.locate.IndexedPointInAreaLocator
 import org.locationtech.jts.geom._
 import org.locationtech.jts.index.quadtree.Quadtree
 import org.locationtech.jts.io.WKTReader
@@ -12,6 +13,7 @@ object Geofla {
 
   final case class Commune(
       geometry: Geometry,
+      locator: IndexedPointInAreaLocator,
       idGeofla: String,
       codeCommune: String,
       inseeCommune: String,
@@ -41,8 +43,10 @@ object Geofla {
         case Array(wkt: String, rest: String) => wkt :: rest.split(',').drop(1).toList
       }
       .map { list =>
+        val geom = reader.read(list(0))
         Commune(
-          geometry = reader.read(list(0)),
+          geometry = geom,
+          locator = new IndexedPointInAreaLocator(geom),
           idGeofla = list(1),
           codeCommune = list(2),
           inseeCommune = list(3),
@@ -76,33 +80,56 @@ object Geofla {
   private[this] final val geometryFactory = new GeometryFactory
 
   def findBy(latitude: Double, longitude: Double): Option[Commune] = {
-    val point = reader.read(s"POINT($longitude $latitude)")
+    val coordinate = new Coordinate(longitude, latitude)
 
-    geometries.find(_.geometry.contains(point))
+    geometries.find { commune =>
+      val location = commune.locator.locate(coordinate)
+      location == 0 || location == 1
+    }
   }
 
   def parFindBy(latitude: Double, longitude: Double): Option[Commune] = {
-    val point = reader.read(s"POINT($longitude $latitude)")
+    val coordinate = new Coordinate(longitude, latitude)
 
-    parGeometries.find(_.geometry.contains(point))
+    parGeometries.find { commune =>
+      val location = commune.locator.locate(coordinate)
+      location == 0 || location == 1
+    }
   }
 
   def arrayFindBy(latitude: Double, longitude: Double): Option[Commune] = {
-    val point = reader.read(s"POINT($longitude $latitude)")
+    val coordinate = new Coordinate(longitude, latitude)
 
-    arrayGeometries.find(_.geometry.contains(point))
+    arrayGeometries.find { commune =>
+      val location = commune.locator.locate(coordinate)
+      location == 0 || location == 1
+    }
   }
 
-  def parArrayFindBy(latitude: Double, longitude: Double): Option[Commune] = {
-    val point = reader.read(s"POINT($longitude $latitude)")
+  def parArrayWithoutLocatorFindBy(latitude: Double, longitude: Double): Option[Commune] = {
+    val coordinate      = new Coordinate(longitude, latitude)
+    val point: Geometry = geometryFactory.createPoint(coordinate)
 
     parArrayGeometries.find(_.geometry.contains(point))
   }
 
-  def findByWithSpatialIndex(latitude: Double, longitude: Double): Option[Commune] = {
-    val point: Geometry = geometryFactory.createPoint(new Coordinate(longitude, latitude))
+  def parArrayFindBy(latitude: Double, longitude: Double): Option[Commune] = {
+    val coordinate = new Coordinate(longitude, latitude)
 
-    tree.query(point.getEnvelopeInternal).asScala.map(_.asInstanceOf[Commune]).find(_.geometry.contains(point))
+    parArrayGeometries.find { commune =>
+      val location = commune.locator.locate(coordinate)
+      location == 0 || location == 1
+    }
+  }
+
+  def findByWithSpatialIndex(latitude: Double, longitude: Double): Option[Commune] = {
+    val coordinate      = new Coordinate(longitude, latitude)
+    val point: Geometry = geometryFactory.createPoint(coordinate)
+
+    tree.query(point.getEnvelopeInternal).asScala.map(_.asInstanceOf[Commune]).find { commune =>
+      val location = commune.locator.locate(coordinate)
+      location == 0 || location == 1
+    }
   }
 
 }

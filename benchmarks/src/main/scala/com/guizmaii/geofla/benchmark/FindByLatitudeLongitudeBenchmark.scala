@@ -126,6 +126,34 @@ class ArrayFindByLatitudeLongitudeBenchmark {
 @Fork(1)
 @BenchmarkMode(Array(Mode.AverageTime))
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
+class ParArrayWithoutLocatorFindByLatitudeLongitudeBenchmark {
+
+  import FindByLatitudeLongitudeBenchmark._
+
+  @Benchmark
+  def inTheFirstCommuneOfTheList: Option[Commune] =
+    Geofla.parArrayWithoutLocatorFindBy(
+      `Cimetière de Lourties-Monbrun, cemetery, Lourties-Monbrun, France`.latitude,
+      `Cimetière de Lourties-Monbrun, cemetery, Lourties-Monbrun, France`.longitude
+    )
+
+  @Benchmark
+  def inTheLastCommuneOfTheList: Option[Commune] =
+    Geofla.parArrayWithoutLocatorFindBy(
+      `Rue de la Fondance, tertiary, Bois-d'Ennebourg, France`.latitude,
+      `Rue de la Fondance, tertiary, Bois-d'Ennebourg, France`.longitude
+    )
+
+  @Benchmark
+  def notInTheList: Option[Commune] = Geofla.parArrayWithoutLocatorFindBy(london.latitude, london.longitude)
+
+}
+
+@Warmup(iterations = 10, time = 2000, timeUnit = TimeUnit.MILLISECONDS)
+@Measurement(iterations = 10, time = 2000, timeUnit = TimeUnit.MILLISECONDS)
+@Fork(1)
+@BenchmarkMode(Array(Mode.AverageTime))
+@OutputTimeUnit(TimeUnit.NANOSECONDS)
 class ParArrayFindByLatitudeLongitudeBenchmark {
 
   import FindByLatitudeLongitudeBenchmark._
