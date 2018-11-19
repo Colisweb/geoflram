@@ -8,8 +8,6 @@ ThisBuild / scalafmtOnCompile := true
 ThisBuild / scalafmtCheck := true
 ThisBuild / scalafmtSbtCheck := true
 
-libraryDependencies += "org.locationtech.jts" % "jts-core" % "1.16.0"
-
 val testKitLibs = Seq(
   "org.scalacheck" %% "scalacheck" % "1.14.0",
   "org.scalactic"  %% "scalactic"  % "3.0.5",
