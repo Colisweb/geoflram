@@ -7,9 +7,9 @@ object Main extends App {
   val lat  = 43.45603285
   val long = 0.5390568833333329
 
-  val a = Geofla.withSpatialIndexFindBy(lat, long)
+  val found = Geofla.withSpatialIndexFindBy(lat, long)
 
-  println(s"TEST: ${a}")
+  println(s"TEST: $found")
 
   println("END")
 
