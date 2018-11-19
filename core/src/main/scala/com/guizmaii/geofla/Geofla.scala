@@ -32,7 +32,8 @@ object Geofla {
   )
 
   private[this] final val lines  = Source.fromResource("COMMUNE.csv")(Codec.UTF8).getLines().drop(1)
-  private[this] final val reader = new WKTReader()
+  private[this] final val geometryFactory = new GeometryFactory
+  private[this] final val reader = new WKTReader(geometryFactory)
 
   private[this] final val geometries =
     lines
@@ -66,8 +67,6 @@ object Geofla {
 
   private[this] final val tree = new Quadtree()
   geometries.foreach(g => tree.insert(g.geometry.getEnvelopeInternal, g))
-
-  private[this] final val geometryFactory = new GeometryFactory
 
   def withSpatialIndexFindBy(latitude: Double, longitude: Double): Option[Commune] = {
     val point: Geometry = geometryFactory.createPoint(new Coordinate(longitude, latitude))
