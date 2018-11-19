@@ -25,126 +25,25 @@ object FindByLatitudeLongitudeBenchmark {
 @Fork(1)
 @BenchmarkMode(Array(Mode.AverageTime))
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
-class FindByLatitudeLongitudeBenchmark {
+class WithSpatialIndexFindByLatitudeLongitudeBenchmark {
 
   import FindByLatitudeLongitudeBenchmark._
 
   @Benchmark
   def inTheFirstCommuneOfTheList: Option[Commune] =
-    Geofla.findBy(
+    Geofla.withSpatialIndexFindBy(
       `Cimetière de Lourties-Monbrun, cemetery, Lourties-Monbrun, France`.latitude,
       `Cimetière de Lourties-Monbrun, cemetery, Lourties-Monbrun, France`.longitude
     )
 
   @Benchmark
   def inTheLastCommuneOfTheList: Option[Commune] =
-    Geofla.findBy(
+    Geofla.withSpatialIndexFindBy(
       `Rue de la Fondance, tertiary, Bois-d'Ennebourg, France`.latitude,
       `Rue de la Fondance, tertiary, Bois-d'Ennebourg, France`.longitude
     )
 
   @Benchmark
-  def notInTheList: Option[Commune] = Geofla.findBy(london.latitude, london.longitude)
-
-  @Benchmark
-  def inTheFirstCommuneOfTheListWithSpatialIndex: Option[Commune] =
-    Geofla.findByWithSpatialIndex(
-      `Cimetière de Lourties-Monbrun, cemetery, Lourties-Monbrun, France`.latitude,
-      `Cimetière de Lourties-Monbrun, cemetery, Lourties-Monbrun, France`.longitude
-    )
-
-  @Benchmark
-  def inTheLastCommuneOfTheListWithSpatialIndex: Option[Commune] =
-    Geofla.findByWithSpatialIndex(
-      `Rue de la Fondance, tertiary, Bois-d'Ennebourg, France`.latitude,
-      `Rue de la Fondance, tertiary, Bois-d'Ennebourg, France`.longitude
-    )
-
-  @Benchmark
-  def notInTheListtWithSpatialIndex: Option[Commune] = Geofla.findByWithSpatialIndex(london.latitude, london.longitude)
-
-}
-
-@Warmup(iterations = 10, time = 2000, timeUnit = TimeUnit.MILLISECONDS)
-@Measurement(iterations = 10, time = 2000, timeUnit = TimeUnit.MILLISECONDS)
-@Fork(1)
-@BenchmarkMode(Array(Mode.AverageTime))
-@OutputTimeUnit(TimeUnit.NANOSECONDS)
-class ParFindByLatitudeLongitudeBenchmark {
-
-  import FindByLatitudeLongitudeBenchmark._
-
-  @Benchmark
-  def inTheFirstCommuneOfTheList: Option[Commune] =
-    Geofla.parFindBy(
-      `Cimetière de Lourties-Monbrun, cemetery, Lourties-Monbrun, France`.latitude,
-      `Cimetière de Lourties-Monbrun, cemetery, Lourties-Monbrun, France`.longitude
-    )
-
-  @Benchmark
-  def inTheLastCommuneOfTheList: Option[Commune] =
-    Geofla.parFindBy(
-      `Rue de la Fondance, tertiary, Bois-d'Ennebourg, France`.latitude,
-      `Rue de la Fondance, tertiary, Bois-d'Ennebourg, France`.longitude
-    )
-
-  @Benchmark
-  def notInTheList: Option[Commune] = Geofla.parFindBy(london.latitude, london.longitude)
-
-}
-
-@Warmup(iterations = 10, time = 2000, timeUnit = TimeUnit.MILLISECONDS)
-@Measurement(iterations = 10, time = 2000, timeUnit = TimeUnit.MILLISECONDS)
-@Fork(1)
-@BenchmarkMode(Array(Mode.AverageTime))
-@OutputTimeUnit(TimeUnit.NANOSECONDS)
-class ArrayFindByLatitudeLongitudeBenchmark {
-
-  import FindByLatitudeLongitudeBenchmark._
-
-  @Benchmark
-  def inTheFirstCommuneOfTheList: Option[Commune] =
-    Geofla.arrayFindBy(
-      `Cimetière de Lourties-Monbrun, cemetery, Lourties-Monbrun, France`.latitude,
-      `Cimetière de Lourties-Monbrun, cemetery, Lourties-Monbrun, France`.longitude
-    )
-
-  @Benchmark
-  def inTheLastCommuneOfTheList: Option[Commune] =
-    Geofla.arrayFindBy(
-      `Rue de la Fondance, tertiary, Bois-d'Ennebourg, France`.latitude,
-      `Rue de la Fondance, tertiary, Bois-d'Ennebourg, France`.longitude
-    )
-
-  @Benchmark
-  def notInTheList: Option[Commune] = Geofla.arrayFindBy(london.latitude, london.longitude)
-
-}
-
-@Warmup(iterations = 10, time = 2000, timeUnit = TimeUnit.MILLISECONDS)
-@Measurement(iterations = 10, time = 2000, timeUnit = TimeUnit.MILLISECONDS)
-@Fork(1)
-@BenchmarkMode(Array(Mode.AverageTime))
-@OutputTimeUnit(TimeUnit.NANOSECONDS)
-class ParArrayFindByLatitudeLongitudeBenchmark {
-
-  import FindByLatitudeLongitudeBenchmark._
-
-  @Benchmark
-  def inTheFirstCommuneOfTheList: Option[Commune] =
-    Geofla.parArrayFindBy(
-      `Cimetière de Lourties-Monbrun, cemetery, Lourties-Monbrun, France`.latitude,
-      `Cimetière de Lourties-Monbrun, cemetery, Lourties-Monbrun, France`.longitude
-    )
-
-  @Benchmark
-  def inTheLastCommuneOfTheList: Option[Commune] =
-    Geofla.parArrayFindBy(
-      `Rue de la Fondance, tertiary, Bois-d'Ennebourg, France`.latitude,
-      `Rue de la Fondance, tertiary, Bois-d'Ennebourg, France`.longitude
-    )
-
-  @Benchmark
-  def notInTheList: Option[Commune] = Geofla.parArrayFindBy(london.latitude, london.longitude)
+  def notInTheList: Option[Commune] = Geofla.withSpatialIndexFindBy(london.latitude, london.longitude)
 
 }

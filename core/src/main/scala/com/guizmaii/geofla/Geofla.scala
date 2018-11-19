@@ -1,14 +1,14 @@
 package com.guizmaii.geofla
+
 import org.locationtech.jts.geom._
 import org.locationtech.jts.index.quadtree.Quadtree
 import org.locationtech.jts.io.WKTReader
 
-import scala.collection.parallel.immutable.ParSeq
-import scala.collection.parallel.mutable.ParArray
 import scala.io.{Codec, Source}
-import collection.JavaConverters._
 
 object Geofla {
+
+  import scala.collection.JavaConverters._
 
   final case class Commune(
       geometry: Geometry,
@@ -62,47 +62,21 @@ object Geofla {
           nomRegion = list(17)
         )
       }
-      .toList
-
-  private[this] final val parGeometries: ParSeq[Commune] = geometries.par
-
-  private[this] final val arrayGeometries: Array[Commune] = geometries.toArray
-
-  private[this] final val parArrayGeometries: ParArray[Commune] = arrayGeometries.par
+      .toArray
 
   private[this] final val tree = new Quadtree()
   geometries.foreach(g => tree.insert(g.geometry.getEnvelopeInternal, g))
 
   private[this] final val geometryFactory = new GeometryFactory
 
-  def findBy(latitude: Double, longitude: Double): Option[Commune] = {
-    val point = reader.read(s"POINT($longitude $latitude)")
-
-    geometries.find(_.geometry.contains(point))
-  }
-
-  def parFindBy(latitude: Double, longitude: Double): Option[Commune] = {
-    val point = reader.read(s"POINT($longitude $latitude)")
-
-    parGeometries.find(_.geometry.contains(point))
-  }
-
-  def arrayFindBy(latitude: Double, longitude: Double): Option[Commune] = {
-    val point = reader.read(s"POINT($longitude $latitude)")
-
-    arrayGeometries.find(_.geometry.contains(point))
-  }
-
-  def parArrayFindBy(latitude: Double, longitude: Double): Option[Commune] = {
-    val point = reader.read(s"POINT($longitude $latitude)")
-
-    parArrayGeometries.find(_.geometry.contains(point))
-  }
-
-  def findByWithSpatialIndex(latitude: Double, longitude: Double): Option[Commune] = {
+  def withSpatialIndexFindBy(latitude: Double, longitude: Double): Option[Commune] = {
     val point: Geometry = geometryFactory.createPoint(new Coordinate(longitude, latitude))
 
-    tree.query(point.getEnvelopeInternal).asScala.map(_.asInstanceOf[Commune]).find(_.geometry.contains(point))
+    tree
+      .query(point.getEnvelopeInternal)
+      .asScala
+      .find(_.asInstanceOf[Commune].geometry.contains(point))
+      .asInstanceOf[Option[Commune]]
   }
 
 }
