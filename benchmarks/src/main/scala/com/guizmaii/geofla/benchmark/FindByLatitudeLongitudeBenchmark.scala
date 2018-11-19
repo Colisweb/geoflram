@@ -44,6 +44,20 @@ class FindByLatitudeLongitudeBenchmark {
     )
 
   @Benchmark
+  def inTheFirstCommuneOfTheListWithSpatialIndex: Option[Commune] =
+    Geofla.findByWithSpatialIndex(
+      `Cimetière de Lourties-Monbrun, cemetery, Lourties-Monbrun, France`.latitude,
+      `Cimetière de Lourties-Monbrun, cemetery, Lourties-Monbrun, France`.longitude
+    )
+
+  @Benchmark
+  def inTheLastCommuneOfTheListWithSpatialIndex: Option[Commune] =
+    Geofla.findByWithSpatialIndex(
+      `Rue de la Fondance, tertiary, Bois-d'Ennebourg, France`.latitude,
+      `Rue de la Fondance, tertiary, Bois-d'Ennebourg, France`.longitude
+    )
+
+  @Benchmark
   def notInTheList: Option[Commune] = Geofla.findBy(london.latitude, london.longitude)
 
 }
