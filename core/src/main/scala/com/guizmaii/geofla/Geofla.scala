@@ -1,10 +1,12 @@
 package com.guizmaii.geofla
-import org.locationtech.jts.geom.Geometry
+import org.locationtech.jts.geom._
+import org.locationtech.jts.index.quadtree.Quadtree
 import org.locationtech.jts.io.WKTReader
 
 import scala.collection.parallel.immutable.ParSeq
 import scala.collection.parallel.mutable.ParArray
 import scala.io.{Codec, Source}
+import collection.JavaConverters._
 
 object Geofla {
 
@@ -68,6 +70,11 @@ object Geofla {
 
   private[this] final val parArrayGeometries: ParArray[Commune] = arrayGeometries.par
 
+  private[this] final val tree = new Quadtree()
+  geometries.foreach(g => tree.insert(g.geometry.getEnvelopeInternal, g))
+
+  private[this] final val geometryFactory = new GeometryFactory
+
   def findBy(latitude: Double, longitude: Double): Option[Commune] = {
     val point = reader.read(s"POINT($longitude $latitude)")
 
@@ -91,4 +98,11 @@ object Geofla {
 
     parArrayGeometries.find(_.geometry.contains(point))
   }
+
+  def findByWithSpatialIndex(latitude: Double, longitude: Double): Option[Commune] = {
+    val point: Geometry = geometryFactory.createPoint(new Coordinate(longitude, latitude))
+
+    tree.query(point.getEnvelopeInternal).asScala.map(_.asInstanceOf[Commune]).find(_.geometry.contains(point))
+  }
+
 }
