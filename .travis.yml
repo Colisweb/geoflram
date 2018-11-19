@@ -6,3 +6,6 @@ script:
 - sbt ++$TRAVIS_SCALA_VERSION clean coverage test coverageReport
 jdk:
 - openjdk8
+
+after_success:
+- bash <(curl -s https://codecov.io/bash)
