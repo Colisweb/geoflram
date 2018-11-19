@@ -56,3 +56,38 @@ class FindByLatitudeLongitudeBenchmark {
   def notInTheList: Option[Commune] = Geofla.findBy(london.latitude, london.longitude)
 
 }
+
+@Warmup(iterations = 10, time = 2000, timeUnit = TimeUnit.MILLISECONDS)
+@Measurement(iterations = 10, time = 2000, timeUnit = TimeUnit.MILLISECONDS)
+@Fork(1)
+@BenchmarkMode(Array(Mode.AverageTime))
+@OutputTimeUnit(TimeUnit.NANOSECONDS)
+class STRTreeFindByLatitudeLongitudeBenchmark {
+
+  import FindByLatitudeLongitudeBenchmark._
+
+  @Benchmark
+  def firstCommuneOfTheList: Option[Commune] =
+    Geofla.strTreefindBy(
+      `Cimetière de Lourties-Monbrun, cemetery, Lourties-Monbrun, France`.latitude,
+      `Cimetière de Lourties-Monbrun, cemetery, Lourties-Monbrun, France`.longitude
+    )
+
+  @Benchmark
+  def middleOfTheList: Option[Commune] =
+    Geofla.strTreefindBy(
+      `Rue des Huttes, tertiary, Coingt, France`.latitude,
+      `Rue des Huttes, tertiary, Coingt, France`.longitude
+    )
+
+  @Benchmark
+  def lastCommuneOfTheList: Option[Commune] =
+    Geofla.strTreefindBy(
+      `Rue de la Fondance, tertiary, Bois-d'Ennebourg, France`.latitude,
+      `Rue de la Fondance, tertiary, Bois-d'Ennebourg, France`.longitude
+    )
+
+  @Benchmark
+  def notInTheList: Option[Commune] = Geofla.strTreefindBy(london.latitude, london.longitude)
+
+}
