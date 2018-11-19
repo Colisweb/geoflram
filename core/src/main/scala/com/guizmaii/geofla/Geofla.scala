@@ -2,6 +2,8 @@ package com.guizmaii.geofla
 import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.io.WKTReader
 
+import scala.collection.parallel.immutable.ParSeq
+import scala.collection.parallel.mutable.ParArray
 import scala.io.{Codec, Source}
 
 object Geofla {
@@ -60,10 +62,33 @@ object Geofla {
       }
       .toList
 
+  private[this] final val parGeometries: ParSeq[Commune] = geometries.par
+
+  private[this] final val arrayGeometries: Array[Commune] = geometries.toArray
+
+  private[this] final val parArrayGeometries: ParArray[Commune] = arrayGeometries.par
+
   def findBy(latitude: Double, longitude: Double): Option[Commune] = {
     val point = reader.read(s"POINT($longitude $latitude)")
 
     geometries.find(_.geometry.contains(point))
   }
 
+  def parFindBy(latitude: Double, longitude: Double): Option[Commune] = {
+    val point = reader.read(s"POINT($longitude $latitude)")
+
+    parGeometries.find(_.geometry.contains(point))
+  }
+
+  def arrayFindBy(latitude: Double, longitude: Double): Option[Commune] = {
+    val point = reader.read(s"POINT($longitude $latitude)")
+
+    arrayGeometries.find(_.geometry.contains(point))
+  }
+
+  def parArrayFindBy(latitude: Double, longitude: Double): Option[Commune] = {
+    val point = reader.read(s"POINT($longitude $latitude)")
+
+    parArrayGeometries.find(_.geometry.contains(point))
+  }
 }
