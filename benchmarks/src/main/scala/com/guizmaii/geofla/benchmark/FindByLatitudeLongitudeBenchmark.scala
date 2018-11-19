@@ -60,4 +60,8 @@ class FindByLatitudeLongitudeBenchmark {
   @Benchmark
   def notInTheList: Option[Commune] = Geofla.findBy(london.latitude, london.longitude)
 
+  @Benchmark
+  def notInTheListtWithSpatialIndex: Option[Commune] = Geofla.findByWithSpatialIndex(london.latitude, london.longitude)
+
+
 }
