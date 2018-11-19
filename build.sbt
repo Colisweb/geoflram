@@ -11,9 +11,9 @@ ThisBuild / scalafmtSbtCheck := true
 libraryDependencies += "org.locationtech.jts" % "jts-core" % "1.16.0"
 
 val testKitLibs = Seq(
-  "org.scalacheck"         %% "scalacheck"         % "1.14.0",
-  "org.scalactic"          %% "scalactic"          % "3.0.5",
-  "org.scalatest"          %% "scalatest"          % "3.0.5",
+  "org.scalacheck" %% "scalacheck" % "1.14.0",
+  "org.scalactic"  %% "scalactic"  % "3.0.5",
+  "org.scalatest"  %% "scalatest"  % "3.0.5",
 ).map(_ % Test)
 
 lazy val core =
@@ -21,8 +21,7 @@ lazy val core =
     .settings(
       addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full),
       libraryDependencies ++= Seq(
-          "org.locationtech.jts" % "jts-core" % "1.16.0",
-          "io.estatico" %% "newtype" % "0.4.2"
+        "org.locationtech.jts" % "jts-core" % "1.16.0"
       ) ++ testKitLibs
     )
 
@@ -31,7 +30,6 @@ lazy val benchmarks =
     .enablePlugins(JmhPlugin)
     .settings(noPublishSettings: _*)
     .dependsOn(core)
-
 
 /**
   * Copied from Cats
