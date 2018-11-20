@@ -74,9 +74,9 @@ object Geofla {
 
     strTree
       .query(point.getEnvelopeInternal)
+      .asInstanceOf[java.util.List[Commune]]
       .asScala
-      .find(_.asInstanceOf[Commune].geometry.contains(point))
-      .asInstanceOf[Option[Commune]]
+      .find(_.geometry.contains(point))
   }
 
 }
