@@ -1,7 +1,7 @@
 package com.guizmaii.geofla
 
 import org.locationtech.jts.geom._
-import org.locationtech.jts.index.quadtree.Quadtree
+import org.locationtech.jts.index.strtree.STRtree
 import org.locationtech.jts.io.WKTReader
 
 import scala.io.{Codec, Source}
@@ -65,17 +65,18 @@ object Geofla {
       }
       .toArray
 
-  private[this] final val tree = new Quadtree()
-  geometries.foreach(g => tree.insert(g.geometry.getEnvelopeInternal, g))
+  private[this] final val strTree = new STRtree()
+  geometries.foreach(g => strTree.insert(g.geometry.getEnvelopeInternal, g))
+  strTree.build()
 
   def findBy(latitude: Double, longitude: Double): Option[Commune] = {
     val point: Geometry = geometryFactory.createPoint(new Coordinate(longitude, latitude))
 
-    tree
+    strTree
       .query(point.getEnvelopeInternal)
+      .asInstanceOf[java.util.List[Commune]]
       .asScala
-      .find(_.asInstanceOf[Commune].geometry.contains(point))
-      .asInstanceOf[Option[Commune]]
+      .find(_.geometry.contains(point))
   }
 
 }
