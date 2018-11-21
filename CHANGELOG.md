@@ -6,6 +6,10 @@ More infos about this file : http://keepachangelog.com/
 
 ## [Unreleased] - no_due_date
 
+## [v0.1.4] - 2018.11.21
+
+- **Fix publishing to Bintray**
+
 ## [v0.1.2] - 2018.11.21
 
 - **Rename packages from `com.guizmaii.geofla` to `com.colisweb.geoflram`**
