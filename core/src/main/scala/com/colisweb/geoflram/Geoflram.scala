@@ -1,4 +1,4 @@
-package com.guizmaii.geofla
+package com.colisweb.geoflram
 
 import org.locationtech.jts.geom._
 import org.locationtech.jts.index.strtree.STRtree
@@ -6,7 +6,7 @@ import org.locationtech.jts.io.WKTReader
 
 import scala.io.{Codec, Source}
 
-object Geofla {
+object Geoflram {
 
   import scala.collection.JavaConverters._
 
@@ -32,7 +32,7 @@ object Geofla {
   )
 
   private[this] final val lines           = Source.fromResource("COMMUNE.csv")(Codec.UTF8).getLines().drop(1)
-  private[this] final val geometryFactory = new GeometryFactory
+  private[this] final val geometryFactory = new GeometryFactory(new PrecisionModel(), 4326)
   private[this] final val reader          = new WKTReader(geometryFactory)
   private[this] final val strTree         = new STRtree()
 
