@@ -6,6 +6,10 @@ More infos about this file : http://keepachangelog.com/
 
 ## [Unreleased] - no_due_date
 
+## [v1.0.0] - 2018.11.21
+
+- **Publish from `master` branch**
+
 ## [v0.1.4] - 2018.11.21
 
 - **Fix publishing to Bintray**
