@@ -1,7 +1,7 @@
 import sbt.Keys.libraryDependencies
 
-ThisBuild / organization := "com.guizmaii"
-ThisBuild / name := "in_memory_geofla"
+ThisBuild / organization := "com.colisweb"
+ThisBuild / name := "geoflram"
 ThisBuild / version := "0.1"
 ThisBuild / scalaVersion := "2.12.7"
 ThisBuild / scalafmtOnCompile := true
