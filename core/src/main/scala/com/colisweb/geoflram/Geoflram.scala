@@ -1,4 +1,4 @@
-package com.guizmaii.geofla
+package com.colisweb.geoflram
 
 import org.locationtech.jts.geom._
 import org.locationtech.jts.index.strtree.STRtree
@@ -6,7 +6,7 @@ import org.locationtech.jts.io.WKTReader
 
 import scala.io.{Codec, Source}
 
-object Geofla {
+object Geoflram {
 
   import scala.collection.JavaConverters._
 

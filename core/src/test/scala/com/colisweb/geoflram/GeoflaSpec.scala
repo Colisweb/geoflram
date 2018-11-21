@@ -1,4 +1,6 @@
-import com.guizmaii.geofla.Geofla
+package com.colisweb.geoflram
+
+import com.colisweb.geoflram.Geoflram
 import org.scalatest.{FlatSpec, Matchers}
 
 class GeoflaSpec extends FlatSpec with Matchers {
@@ -20,28 +22,28 @@ class GeoflaSpec extends FlatSpec with Matchers {
 
     val london = GpsPoint(latitude = 51.5073219, longitude = -0.1276474)
 
-    Geofla
+    Geoflram
       .findBy(
         `Rue de la Fondance, tertiary, Bois-d'Ennebourg, France`.latitude,
         `Rue de la Fondance, tertiary, Bois-d'Ennebourg, France`.longitude,
       )
       .map(_.nomCommune) shouldBe Some("BOIS-D'ENNEBOURG")
 
-    Geofla
+    Geoflram
       .findBy(
         `Rue des Huttes, tertiary, Coingt, France`.latitude,
         `Rue des Huttes, tertiary, Coingt, France`.longitude,
       )
       .map(_.nomCommune) shouldBe Some("COINGT")
 
-    Geofla
+    Geoflram
       .findBy(
         `Cimetière de Lourties-Monbrun, cemetery, Lourties-Monbrun, France`.latitude,
         `Cimetière de Lourties-Monbrun, cemetery, Lourties-Monbrun, France`.longitude,
       )
       .map(_.nomCommune) shouldBe Some("LOURTIES-MONBRUN")
 
-    Geofla
+    Geoflram
       .findBy(
         london.latitude,
         london.longitude,

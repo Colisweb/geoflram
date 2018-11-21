@@ -6,6 +6,9 @@ More infos about this file : http://keepachangelog.com/
 
 ## [Unreleased] - no_due_date
 
+- **Rename packages from `com.guizmaii.geofla` to `com.colisweb.geoflram`**
+- **Rename object `Geogla` to `Geoflram`**
+
 ## [v0.1.1] - 2018.11.21
 
 - **Precise the SRID used in loaded data (WGS84) in the `GeometryFactory`**

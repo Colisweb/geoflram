@@ -1,7 +1,8 @@
-package com.guizmaii.geofla.benchmark
+package com.colisweb.geoflram.benchmark
+
 import java.util.concurrent.TimeUnit
 
-import com.guizmaii.geofla.Geofla
+import com.colisweb.geoflram.Geoflram
 import com.guizmaii.geofla.Geofla.Commune
 import org.openjdk.jmh.annotations._
 
@@ -33,26 +34,26 @@ class FindByLatitudeLongitudeBenchmark {
 
   @Benchmark
   def firstCommuneOfTheList: Option[Commune] =
-    Geofla.findBy(
+    Geoflram.findBy(
       `Cimetière de Lourties-Monbrun, cemetery, Lourties-Monbrun, France`.latitude,
       `Cimetière de Lourties-Monbrun, cemetery, Lourties-Monbrun, France`.longitude
     )
 
   @Benchmark
   def middleOfTheList: Option[Commune] =
-    Geofla.findBy(
+    Geoflram.findBy(
       `Rue des Huttes, tertiary, Coingt, France`.latitude,
       `Rue des Huttes, tertiary, Coingt, France`.longitude
     )
 
   @Benchmark
   def lastCommuneOfTheList: Option[Commune] =
-    Geofla.findBy(
+    Geoflram.findBy(
       `Rue de la Fondance, tertiary, Bois-d'Ennebourg, France`.latitude,
       `Rue de la Fondance, tertiary, Bois-d'Ennebourg, France`.longitude
     )
 
   @Benchmark
-  def notInTheList: Option[Commune] = Geofla.findBy(london.latitude, london.longitude)
+  def notInTheList: Option[Commune] = Geoflram.findBy(london.latitude, london.longitude)
 
 }
