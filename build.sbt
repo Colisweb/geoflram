@@ -1,7 +1,6 @@
 import sbt.Keys.{homepage, libraryDependencies, licenses}
 
 ThisBuild / organization := "com.colisweb"
-ThisBuild / name := "geoflram"
 ThisBuild / scalaVersion := "2.12.7"
 ThisBuild / scalafmtOnCompile := true
 ThisBuild / scalafmtCheck := true
@@ -13,14 +12,15 @@ val testKitLibs = Seq(
   "org.scalatest"  %% "scalatest"  % "3.0.5",
 ).map(_ % Test)
 
-lazy val geoflram =
-  project
-    .in(file("."))
-    .aggregate(core)
+lazy val root = Project(id = "geoflram", base = file("."))
+  .settings(moduleName := "root")
+  .settings(noPublishSettings: _*)
+  .aggregate(core)
+  .dependsOn(core)
 
 lazy val core =
   project
-    .settings(noPublishSettings: _*)
+    .settings(moduleName := "geoflram")
     .settings(
       addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full),
       libraryDependencies ++= Seq(
