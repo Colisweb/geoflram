@@ -17,7 +17,6 @@ lazy val geoflram =
   project
     .in(file("."))
     .aggregate(core)
-    .dependsOn(core)
 
 lazy val core =
   project
