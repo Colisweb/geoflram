@@ -1,6 +1,5 @@
 package com.colisweb.geoflram
 
-import com.colisweb.geoflram.Geoflram
 import org.scalatest.{FlatSpec, Matchers}
 
 class GeoflaSpec extends FlatSpec with Matchers {

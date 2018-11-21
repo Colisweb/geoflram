@@ -3,7 +3,7 @@ package com.colisweb.geoflram.benchmark
 import java.util.concurrent.TimeUnit
 
 import com.colisweb.geoflram.Geoflram
-import com.guizmaii.geofla.Geofla.Commune
+import com.colisweb.geoflram.Geoflram.Commune
 import org.openjdk.jmh.annotations._
 
 object FindByLatitudeLongitudeBenchmark {
