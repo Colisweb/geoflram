@@ -15,8 +15,8 @@ val testKitLibs = Seq(
 lazy val root = Project(id = "geoflram", base = file("."))
   .settings(moduleName := "root")
   .settings(noPublishSettings: _*)
-  .aggregate(core)
-  .dependsOn(core)
+  .aggregate(core, jruby)
+  .dependsOn(core, jruby)
 
 lazy val core =
   project
@@ -27,6 +27,12 @@ lazy val core =
         "org.locationtech.jts" % "jts-core" % "1.16.0"
       ) ++ testKitLibs
     )
+
+lazy val jruby =
+  project
+    .settings(moduleName := "geoflram-jruby")
+    .settings(libraryDependencies ++= testKitLibs)
+    .dependsOn(core)
 
 lazy val benchmarks =
   project
