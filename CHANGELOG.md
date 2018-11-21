@@ -6,6 +6,8 @@ More infos about this file : http://keepachangelog.com/
 
 ## [Unreleased] - no_due_date
 
+## [v1.1.0] - 2018.11.21
+
 - **Add a `jruby` module which contains code optimized for use in JRuby**
 
 ## [v1.0.0] - 2018.11.21
