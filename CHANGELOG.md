@@ -6,6 +6,8 @@ More infos about this file : http://keepachangelog.com/
 
 ## [Unreleased] - no_due_date
 
+- **Precise the SRID used in loaded data (WGS84) in the `GeometryFactory`**
+
 ## [v0.1.0] - 2018.11.21
 
 - **Init project**

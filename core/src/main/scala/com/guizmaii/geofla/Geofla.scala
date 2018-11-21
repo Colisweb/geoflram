@@ -32,7 +32,7 @@ object Geofla {
   )
 
   private[this] final val lines           = Source.fromResource("COMMUNE.csv")(Codec.UTF8).getLines().drop(1)
-  private[this] final val geometryFactory = new GeometryFactory
+  private[this] final val geometryFactory = new GeometryFactory(new PrecisionModel(), 4326)
   private[this] final val reader          = new WKTReader(geometryFactory)
   private[this] final val strTree         = new STRtree()
 
