@@ -6,6 +6,8 @@ More infos about this file : http://keepachangelog.com/
 
 ## [Unreleased] - no_due_date
 
+- **Fix generated `.pom` file**
+
 ## [v1.1.0] - 2018.11.21
 
 - **Add a `jruby` module which contains code optimized for use in JRuby**

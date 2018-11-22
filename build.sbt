@@ -53,12 +53,11 @@ inThisBuild(
   List(
     credentials += Credentials(Path.userHome / ".bintray" / ".credentials"),
     licenses := Seq("MIT" -> url("http://opensource.org/licenses/MIT")),
-    homepage := Some(url("https://github.com/colisweb/sbt-datadog")),
+    homepage := Some(url("https://github.com/Colisweb/geoflram")),
     bintrayOrganization := Some("colisweb"),
     bintrayReleaseOnPublish := true,
     publishMavenStyle := true,
     pomExtra := (
-      <url>https://github.com/Colisweb/geoflram</url>
       <scm>
         <url>git@github.com:Colisweb/geoflram.git</url>
         <connection>scm:git:git@github.com:Colisweb/geoflram.git</connection>
