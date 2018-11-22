@@ -11,7 +11,7 @@ Add the following to your `build.sbt` file:
 ```scala
 resolvers += Resolver.bintrayRepo("colisweb", "maven")
 
-libraryDependencies += "com.colisweb" %% "geoflram" % "1.0.0"
+libraryDependencies += "com.colisweb" %% "geoflram" % "1.1.1"
 ```
 
 Use

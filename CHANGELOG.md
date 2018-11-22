@@ -6,6 +6,8 @@ More infos about this file : http://keepachangelog.com/
 
 ## [Unreleased] - no_due_date
 
+## [v1.1.1] - 2018.11.22
+
 - **Fix generated `.pom` file**
 
 ## [v1.1.0] - 2018.11.21
