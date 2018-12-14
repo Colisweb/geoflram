@@ -6,6 +6,8 @@ More infos about this file : http://keepachangelog.com/
 
 ## [Unreleased] - no_due_date
 
+## [v1.1.2] - 2018.12.14
+
 - **Dependency updates**
   - Scala:  2.12.7 -> 2.12.8
   - sbt:    1.2.6 -> 1.2.7
