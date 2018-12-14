@@ -6,6 +6,10 @@ More infos about this file : http://keepachangelog.com/
 
 ## [Unreleased] - no_due_date
 
+- **Dependency updates**
+  - Scala:  2.12.7 -> 2.12.8
+  - sbt:    1.2.6 -> 1.2.7
+
 ## [v1.1.1] - 2018.11.22
 
 - **Fix generated `.pom` file**

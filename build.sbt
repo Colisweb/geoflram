@@ -1,7 +1,7 @@
 import sbt.Keys.{homepage, libraryDependencies, licenses}
 
 ThisBuild / organization := "com.colisweb"
-ThisBuild / scalaVersion := "2.12.7"
+ThisBuild / scalaVersion := "2.12.8"
 ThisBuild / scalafmtOnCompile := true
 ThisBuild / scalafmtCheck := true
 ThisBuild / scalafmtSbtCheck := true
