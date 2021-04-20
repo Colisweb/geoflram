@@ -1,4 +1,4 @@
-import sbt.Keys.{homepage, libraryDependencies, licenses}
+import sbt.Keys.libraryDependencies
 
 ThisBuild / organization := "com.colisweb"
 ThisBuild / scalaVersion := "2.12.8"
@@ -9,11 +9,11 @@ ThisBuild / scalafmtSbtCheck := true
 val testKitLibs = Seq(
   "org.scalacheck" %% "scalacheck" % "1.14.0",
   "org.scalactic"  %% "scalactic"  % "3.0.5",
-  "org.scalatest"  %% "scalatest"  % "3.0.5",
+  "org.scalatest"  %% "scalatest"  % "3.0.5"
 ).map(_ % Test)
 
 lazy val root = Project(id = "geoflram", base = file("."))
-  .settings(moduleName := "root")
+  .settings(moduleName := "geoflram")
   .settings(noPublishSettings: _*)
   .aggregate(core, jruby)
   .dependsOn(core, jruby)
@@ -47,30 +47,6 @@ def noPublishSettings = Seq(
   publish := {},
   publishLocal := {},
   publishArtifact := false
-)
-
-inThisBuild(
-  List(
-    credentials += Credentials(Path.userHome / ".bintray" / ".credentials"),
-    licenses := Seq("MIT" -> url("http://opensource.org/licenses/MIT")),
-    homepage := Some(url("https://github.com/Colisweb/geoflram")),
-    bintrayOrganization := Some("colisweb"),
-    bintrayReleaseOnPublish := true,
-    publishMavenStyle := true,
-    pomExtra := (
-      <scm>
-        <url>git@github.com:Colisweb/geoflram.git</url>
-        <connection>scm:git:git@github.com:Colisweb/geoflram.git</connection>
-      </scm>
-      <developers>
-        <developer>
-          <id>guizmaii</id>
-          <name>Jules Ivanic</name>
-          <url>https://www.colisweb.com</url>
-        </developer>
-      </developers>
-    )
-  )
 )
 
 //// Aliases
